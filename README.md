@@ -22,7 +22,7 @@
 <!-- STATS:START -->
 <div align="center">
 
-🧮 **1** solved &nbsp;·&nbsp; 🔥 **0**-day streak &nbsp;·&nbsp; 🏆 **0** longest &nbsp;·&nbsp; 🗓️ **0** / 30 active
+🧮 **1** solved &nbsp;·&nbsp; 🔥 **1**-day streak &nbsp;·&nbsp; 🏆 **1** longest &nbsp;·&nbsp; 🗓️ **1** / 30 active
 
 **🔥 Daily activity** &nbsp;·&nbsp; <sub>2026-05-19 → 2026-06-17</sub>
 
@@ -49,7 +49,7 @@ xychart-beta
 <!-- INDEX:START -->
 | # | Problem | Topic | Time | Space | Test | Added |
 |:---:|:--|:--|:---:|:---:|:---:|:---:|
-| 01 | [Line Wrap (Word Wrap)](src/strings/greedy/LineWrap.kt) | `Strings` · `Greedy` | `O(n)` | `O(n)` | [🧪](test/strings/greedy/LineWrapTest.kt) | — |
+| 01 | [Line Wrap (Word Wrap)](src/strings/greedy/LineWrap.kt) | `Strings` · `Greedy` | `O(n)` | `O(n)` | [🧪](test/strings/greedy/LineWrapTest.kt) | 2026-06-17 |
 <!-- INDEX:END -->
 
 ## 🚀 Run & test
