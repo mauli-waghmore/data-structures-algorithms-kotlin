@@ -22,15 +22,11 @@
 <!-- STATS:START -->
 <div align="center">
 
-| &nbsp;🧮 Solved&nbsp; | &nbsp;🔥 Current streak&nbsp; | &nbsp;🏆 Longest streak&nbsp; | &nbsp;🗓️ Active (30d)&nbsp; |
-|:--:|:--:|:--:|:--:|
-| **`1`** | **`0`** days | **`0`** days | **`0`** / 30 |
+🧮 **1** solved &nbsp;·&nbsp; 🔥 **0**-day streak &nbsp;·&nbsp; 🏆 **0** longest &nbsp;·&nbsp; 🗓️ **0** / 30 active
 
 **🔥 Daily activity** &nbsp;·&nbsp; <sub>2026-05-19 → 2026-06-17</sub>
 
-⬜⬜⬜⬜⬜⬜⬜<br>⬜⬜⬜⬜⬜⬜⬜<br>⬜⬜⬜⬜⬜⬜⬜<br>⬜⬜⬜⬜⬜⬜⬜<br>⬜🔴
-
-<sub>🟩 solved &nbsp;·&nbsp; ⬜ missed &nbsp;·&nbsp; 🔴 today (pending)</sub>
+<img src="assets/activity.svg" alt="30-day activity calendar" width="320">
 
 </div>
 
@@ -51,9 +47,9 @@ xychart-beta
 ## 📇 Problem index
 
 <!-- INDEX:START -->
-| #  | Date | Problem | Category | Technique | Time | Space | Tests |
-|----|------|---------|----------|-----------|------|-------|-------|
-| 01 | — | [Line Wrap (Word Wrap)](src/strings/greedy/LineWrap.kt) | Strings | Greedy | O(n) | O(n) | [view](test/strings/greedy/LineWrapTest.kt) |
+| # | Problem | Topic | Time | Space | Test | Added |
+|:---:|:--|:--|:---:|:---:|:---:|:---:|
+| 01 | [Line Wrap (Word Wrap)](src/strings/greedy/LineWrap.kt) | `Strings` · `Greedy` | `O(n)` | `O(n)` | [🧪](test/strings/greedy/LineWrapTest.kt) | — |
 <!-- INDEX:END -->
 
 ## 🚀 Run & test
@@ -64,16 +60,21 @@ xychart-beta
 ./gradlew test                                            # run all tests
 ./gradlew build                                           # compile + test
 ./gradlew runProblem -Pmain=strings.greedy.LineWrapKt     # run one problem's main()
+./gradlew reviewRandom                                    # pick a past problem to revisit 🎯
 ```
 
 ## ➕ Adding a problem
 
-The tracking is automatic — to log a new problem I only:
+One command scaffolds **both** files (solution + test) from the template — no boilerplate:
 
-1. Add **`src/<category>/<technique>/Name.kt`** with the standard KDoc header
-   (title on the first line, plus `Time:` and `Space:` lines — see [LineWrap.kt](src/strings/greedy/LineWrap.kt)).
-2. Add **`test/<category>/<technique>/NameTest.kt`** with its tests.
-3. Push — the streak, graph, index, badge, and version all update themselves.
+```bash
+./gradlew newProblem -Pid=arrays.two_pointers.TwoSum
+```
+
+That creates `src/arrays/two_pointers/TwoSum.kt` (with the KDoc header — fill in the
+problem, `Time:` and `Space:`) and `test/arrays/two_pointers/TwoSumTest.kt`. Then solve it,
+run `./gradlew test`, and **push** — the streak, graph, index, badge, and version all
+update themselves.
 
 <details>
 <summary><b>🗂️ Project structure</b></summary>
@@ -85,6 +86,7 @@ data-structures-algorithms-kotlin/
 ├── src/<category>/<technique>/*.kt    # solutions  (package mirrors the path)
 ├── test/<category>/<technique>/*.kt   # tests       (mirror of src/)
 ├── scripts/generate_readme.py         # rebuilds the progress + index sections
+├── assets/activity.svg                # generated 30-day activity calendar
 ├── .github/workflows/                 # CI (build + test) and progress tracking
 ├── build.gradle.kts                   # Gradle (Kotlin DSL); version = problem count
 └── settings.gradle.kts

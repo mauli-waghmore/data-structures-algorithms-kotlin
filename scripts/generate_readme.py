@@ -151,18 +151,97 @@ def category_graph(problems):
     )
 
 
-def activity_grid(days, today):
-    window = [today - timedelta(days=i) for i in range(WINDOW_DAYS - 1, -1, -1)]
-    cells = []
-    for d in window:
-        if d == today and d not in days:
-            cells.append("🔴")
-        elif d in days:
-            cells.append("🟩")
-        else:
-            cells.append("⬜")
-    rows = ["".join(cells[i:i + 7]) for i in range(0, len(cells), 7)]
-    return "<br>".join(rows), window[0], window[-1]
+CELL = 16
+GAP = 4
+PAD = 6
+TOP = 20
+WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+CELL_STYLE = {
+    "solved": ("#39d353", "1"),
+    "missed": ("#8b949e", "0.40"),
+    "out": ("#8b949e", "0.13"),
+    "today": ("#f85149", "1"),
+}
+
+
+def day_status(day, days, today, window_start):
+    if day < window_start or day > today:
+        return "out"
+    if day == today and day not in days:
+        return "today"
+    if day in days:
+        return "solved"
+    return "missed"
+
+
+FONT = "-apple-system,Segoe UI,Helvetica,Arial,sans-serif"
+LEGEND = [("solved", "solved"), ("missed", "missed"), ("today", "today")]
+
+
+def activity_svg(days, today):
+    window_start = today - timedelta(days=WINDOW_DAYS - 1)
+    grid_start = window_start - timedelta(days=window_start.weekday())
+    grid_end = today + timedelta(days=6 - today.weekday())
+
+    weeks = []
+    week = grid_start
+    while week <= grid_end:
+        weeks.append([day_status(week + timedelta(days=i), days, today, window_start) for i in range(7)])
+        week += timedelta(days=7)
+
+    rows = len(weeks)
+    grid_w = 7 * CELL + 6 * GAP
+    grid_h = rows * CELL + (rows - 1) * GAP
+
+    swatch, label_gap, item_gap, char_w = 11, 5, 18, 5.6
+    item_w = [swatch + label_gap + len(label) * char_w for _, label in LEGEND]
+    legend_w = sum(item_w) + item_gap * (len(LEGEND) - 1)
+
+    content_w = max(grid_w, legend_w)
+    width = PAD * 2 + content_w
+    legend_gap, legend_h = 16, 16
+    height = TOP + grid_h + legend_gap + legend_h + PAD
+
+    grid_x = PAD + (content_w - grid_w) / 2
+    legend_x = PAD + (content_w - legend_w) / 2
+    legend_y = TOP + grid_h + legend_gap
+
+    out = [
+        '<svg xmlns="http://www.w3.org/2000/svg" width="{:.0f}" height="{:.0f}" '
+        'viewBox="0 0 {:.0f} {:.0f}" role="img" aria-label="30-day activity">'.format(width, height, width, height)
+    ]
+    for col, label in enumerate(WEEKDAYS):
+        x = grid_x + col * (CELL + GAP) + CELL / 2
+        out.append(
+            '<text x="{:.1f}" y="13" text-anchor="middle" font-family="{}" '
+            'font-size="9" fill="#8b949e">{}</text>'.format(x, FONT, label)
+        )
+    for r, days_row in enumerate(weeks):
+        for c, status in enumerate(days_row):
+            fill, opacity = CELL_STYLE[status]
+            x = grid_x + c * (CELL + GAP)
+            y = TOP + r * (CELL + GAP)
+            out.append(
+                '<rect x="{:.1f}" y="{}" width="{}" height="{}" rx="3" fill="{}" opacity="{}"/>'.format(
+                    x, y, CELL, CELL, fill, opacity
+                )
+            )
+    lx = legend_x
+    for i, (status, label) in enumerate(LEGEND):
+        fill, opacity = CELL_STYLE[status]
+        out.append(
+            '<rect x="{:.1f}" y="{:.1f}" width="{}" height="{}" rx="2.5" fill="{}" opacity="{}"/>'.format(
+                lx, legend_y, swatch, swatch, fill, opacity
+            )
+        )
+        out.append(
+            '<text x="{:.1f}" y="{:.1f}" font-family="{}" font-size="10" fill="#8b949e">{}</text>'.format(
+                lx + swatch + label_gap, legend_y + swatch - 1, FONT, label
+            )
+        )
+        lx += item_w[i] + item_gap
+    out.append("</svg>")
+    return "\n".join(out) + "\n", window_start, today
 
 
 def plural(n):
@@ -178,41 +257,39 @@ def build_progress(problems):
     longest = longest_streak(days)
     active_in_window = sum(1 for d in days if 0 <= (today - d).days < WINDOW_DAYS)
 
-    grid, start, end = activity_grid(days, today)
+    svg, start, end = activity_svg(days, today)
+
+    stat_line = (
+        "🧮 **{}** solved &nbsp;·&nbsp; 🔥 **{}**-day streak "
+        "&nbsp;·&nbsp; 🏆 **{}** longest &nbsp;·&nbsp; 🗓️ **{}** / 30 active"
+    ).format(total, streak, longest, active_in_window)
 
     dashboard = (
         "<div align=\"center\">\n\n"
-        "| &nbsp;🧮 Solved&nbsp; | &nbsp;🔥 Current streak&nbsp; | &nbsp;🏆 Longest streak&nbsp; | &nbsp;🗓️ Active (30d)&nbsp; |\n"
-        "|:--:|:--:|:--:|:--:|\n"
-        "| **`{}`** | **`{}`** day{} | **`{}`** day{} | **`{}`** / 30 |\n\n"
-        "**🔥 Daily activity** &nbsp;·&nbsp; <sub>{} → {}</sub>\n\n"
-        "{}\n\n"
-        "<sub>🟩 solved &nbsp;·&nbsp; ⬜ missed &nbsp;·&nbsp; 🔴 today (pending)</sub>\n\n"
-        "</div>"
-    ).format(
-        total, streak, plural(streak), longest, plural(longest), active_in_window,
-        start.isoformat(), end.isoformat(), grid,
+        + stat_line + "\n\n"
+        + "**🔥 Daily activity** &nbsp;·&nbsp; <sub>" + start.isoformat() + " → " + end.isoformat() + "</sub>\n\n"
+        + '<img src="assets/activity.svg" alt="30-day activity calendar" width="320">\n\n'
+        + "</div>"
     )
 
     by_category = "<b>📚 Problems by category</b>\n\n" + category_graph(problems)
 
-    return total, dashboard + "\n\n" + by_category
+    return total, dashboard + "\n\n" + by_category, svg
 
 
 def build_index(problems):
     if not problems:
-        return "_No problems yet — add your first one under `src/`._"
+        return "_No problems yet — create one with_ `./gradlew newProblem -Pid=category.technique.Name`"
     header = (
-        "| #  | Date | Problem | Category | Technique | Time | Space | Tests |\n"
-        "|----|------|---------|----------|-----------|------|-------|-------|"
+        "| # | Problem | Topic | Time | Space | Test | Added |\n"
+        "|:---:|:--|:--|:---:|:---:|:---:|:---:|"
     )
     rows = []
     for i, p in enumerate(problems, 1):
-        tests = "[view]({})".format(p["test"]) if p["test_exists"] else "—"
-        rows.append("| {:02d} | {} | [{}]({}) | {} | {} | {} | {} | {} |".format(
-            i, p["date"] or "—", p["title"], p["solution"],
-            prettify(p["category"]), prettify(p["technique"]),
-            p["time"], p["space"], tests,
+        test = "[🧪]({})".format(p["test"]) if p["test_exists"] else "—"
+        topic = "`{}` · `{}`".format(prettify(p["category"]), prettify(p["technique"]))
+        rows.append("| {:02d} | [{}]({}) | {} | `{}` | `{}` | {} | {} |".format(
+            i, p["title"], p["solution"], topic, p["time"], p["space"], test, p["date"] or "—",
         ))
     return header + "\n" + "\n".join(rows)
 
@@ -226,7 +303,7 @@ def replace_region(text, name, payload):
 
 def main():
     problems = collect_problems()
-    total, progress = build_progress(problems)
+    total, progress, svg = build_progress(problems)
     index = build_index(problems)
 
     with open(README, encoding="utf-8") as handle:
@@ -239,7 +316,12 @@ def main():
     with open(README, "w", encoding="utf-8") as handle:
         handle.write(text)
 
-    print("Generated README for {} problem(s).".format(total))
+    svg_path = os.path.join(ROOT, "assets", "activity.svg")
+    os.makedirs(os.path.dirname(svg_path), exist_ok=True)
+    with open(svg_path, "w", encoding="utf-8") as handle:
+        handle.write(svg)
+
+    print("Generated README + assets/activity.svg for {} problem(s).".format(total))
 
 
 if __name__ == "__main__":
