@@ -2,11 +2,13 @@
 import os
 import re
 import subprocess
-from datetime import datetime, timezone
+from datetime import datetime, timezone, date, timedelta
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "src")
 README = os.path.join(ROOT, "README.md")
+
+WINDOW_DAYS = 30
 
 
 def prettify(name):
@@ -93,6 +95,110 @@ def collect_problems():
     return problems
 
 
+def active_dates(problems):
+    days = set()
+    for p in problems:
+        if p["date"]:
+            try:
+                days.add(date.fromisoformat(p["date"]))
+            except ValueError:
+                pass
+    return days
+
+
+def current_streak(days, today):
+    cursor = today if today in days else today - timedelta(days=1)
+    streak = 0
+    while cursor in days:
+        streak += 1
+        cursor -= timedelta(days=1)
+    return streak
+
+
+def longest_streak(days):
+    best = 0
+    for d in days:
+        if d - timedelta(days=1) in days:
+            continue
+        length, cursor = 0, d
+        while cursor in days:
+            length += 1
+            cursor += timedelta(days=1)
+        best = max(best, length)
+    return best
+
+
+def category_graph(problems):
+    counts = {}
+    for p in problems:
+        counts[p["category"]] = counts.get(p["category"], 0) + 1
+    cats = sorted(counts)
+    if not cats:
+        return "_No problems yet — add your first one under `src/`._"
+    labels = ", ".join('"' + prettify(c) + '"' for c in cats)
+    values = ", ".join(str(counts[c]) for c in cats)
+    ymax = max(counts.values()) + 1
+    init = '%%{init: {"xyChart": {"plotColorPalette": "#7F52FF"}}}%%'
+    return (
+        "```mermaid\n"
+        + init + "\n"
+        + "xychart-beta\n"
+        + '    title "Problems by category"\n'
+        + "    x-axis [" + labels + "]\n"
+        + '    y-axis "Solved" 0 --> ' + str(ymax) + "\n"
+        + "    bar [" + values + "]\n"
+        + "```"
+    )
+
+
+def activity_grid(days, today):
+    window = [today - timedelta(days=i) for i in range(WINDOW_DAYS - 1, -1, -1)]
+    cells = []
+    for d in window:
+        if d == today and d not in days:
+            cells.append("🔴")
+        elif d in days:
+            cells.append("🟩")
+        else:
+            cells.append("⬜")
+    rows = ["".join(cells[i:i + 7]) for i in range(0, len(cells), 7)]
+    return "<br>".join(rows), window[0], window[-1]
+
+
+def plural(n):
+    return "" if n == 1 else "s"
+
+
+def build_progress(problems):
+    today = datetime.now(timezone.utc).date()
+    total = len(problems)
+    days = active_dates(problems)
+
+    streak = current_streak(days, today)
+    longest = longest_streak(days)
+    active_in_window = sum(1 for d in days if 0 <= (today - d).days < WINDOW_DAYS)
+
+    grid, start, end = activity_grid(days, today)
+
+    dashboard = (
+        "<div align=\"center\">\n\n"
+        "| &nbsp;🧮 Solved&nbsp; | &nbsp;🔥 Current streak&nbsp; | &nbsp;🏆 Longest streak&nbsp; | &nbsp;🗓️ Active (30d)&nbsp; |\n"
+        "|:--:|:--:|:--:|:--:|\n"
+        "| **`{}`** | **`{}`** day{} | **`{}`** day{} | **`{}`** / 30 |\n\n"
+        "**🔥 Daily activity** &nbsp;·&nbsp; <sub>{} → {}</sub>\n\n"
+        "{}\n\n"
+        "<sub>🟩 solved &nbsp;·&nbsp; ⬜ missed &nbsp;·&nbsp; 🔴 today (pending)</sub>\n\n"
+        "</div>"
+    ).format(
+        total, streak, plural(streak), longest, plural(longest), active_in_window,
+        start.isoformat(), end.isoformat(), grid,
+    )
+
+    by_category = "<b>📚 Problems by category</b>\n\n" + category_graph(problems)
+
+    return total, dashboard + "\n\n" + by_category
+
+
 def build_index(problems):
     if not problems:
         return "_No problems yet — add your first one under `src/`._"
@@ -111,32 +217,6 @@ def build_index(problems):
     return header + "\n" + "\n".join(rows)
 
 
-def build_stats(problems):
-    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    total = len(problems)
-    counts = {}
-    for p in problems:
-        counts[p["category"]] = counts.get(p["category"], 0) + 1
-    cats = sorted(counts)
-    if cats:
-        labels = ", ".join('"{}"'.format(prettify(c)) for c in cats)
-        values = ", ".join(str(counts[c]) for c in cats)
-        ymax = max(counts.values()) + 1
-        graph = (
-            "```mermaid\n"
-            "xychart-beta\n"
-            '    title "Problems solved by category"\n'
-            "    x-axis [{}]\n".format(labels) +
-            '    y-axis "Solved" 0 --> {}\n'.format(ymax) +
-            "    bar [{}]\n".format(values) +
-            "```"
-        )
-    else:
-        graph = "_No problems yet._"
-    header = "**Problems solved:** {}  ·  **Last updated:** {}".format(total, today)
-    return total, header + "\n\n" + graph
-
-
 def replace_region(text, name, payload):
     start = "<!-- {}:START -->".format(name)
     end = "<!-- {}:END -->".format(name)
@@ -146,13 +226,13 @@ def replace_region(text, name, payload):
 
 def main():
     problems = collect_problems()
-    total, stats = build_stats(problems)
+    total, progress = build_progress(problems)
     index = build_index(problems)
 
     with open(README, encoding="utf-8") as handle:
         text = handle.read()
 
-    text = replace_region(text, "STATS", stats)
+    text = replace_region(text, "STATS", progress)
     text = replace_region(text, "INDEX", index)
     text = re.sub(r"(Problems%20Solved-)\d+", lambda m: m.group(1) + str(total), text)
 
