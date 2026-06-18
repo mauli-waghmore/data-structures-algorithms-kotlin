@@ -9,7 +9,7 @@
 [![JDK](https://img.shields.io/badge/JDK-17-007396?style=flat-square&logo=openjdk&logoColor=white)](https://adoptium.net)
 [![Gradle](https://img.shields.io/badge/Gradle-8.14-02303A?style=flat-square&logo=gradle&logoColor=white)](https://gradle.org)
 [![License](https://img.shields.io/badge/License-MIT-3DA639?style=flat-square)](LICENSE)
-[![Problems Solved](https://img.shields.io/badge/Problems%20Solved-1-success?style=flat-square)](#-progress)
+[![Problems Solved](https://img.shields.io/badge/Problems%20Solved-2-success?style=flat-square)](#-progress)
 
 [**📊 Progress**](#-progress) &nbsp;·&nbsp; [**📇 Problems**](#-problem-index) &nbsp;·&nbsp; [**🚀 Run**](#-run--test) &nbsp;·&nbsp; [**➕ Add a problem**](#-adding-a-problem)
 
@@ -22,9 +22,9 @@
 <!-- STATS:START -->
 <div align="center">
 
-🧮 **1** solved &nbsp;·&nbsp; 🔥 **1**-day streak &nbsp;·&nbsp; 🏆 **1** longest &nbsp;·&nbsp; 🗓️ **1** / 30 active
+🧮 **2** solved &nbsp;·&nbsp; 🔥 **2**-day streak &nbsp;·&nbsp; 🏆 **2** longest &nbsp;·&nbsp; 🗓️ **2** / 30 active
 
-**🔥 Daily activity** &nbsp;·&nbsp; <sub>2026-05-19 → 2026-06-17</sub>
+**🔥 Daily activity** &nbsp;·&nbsp; <sub>2026-05-20 → 2026-06-18</sub>
 
 <img src="assets/activity.svg" alt="30-day activity calendar" width="320">
 
@@ -37,8 +37,8 @@
 xychart-beta
     title "Problems by category"
     x-axis ["Strings"]
-    y-axis "Solved" 0 --> 2
-    bar [1]
+    y-axis "Solved" 0 --> 3
+    bar [2]
 ```
 <!-- STATS:END -->
 
@@ -50,6 +50,7 @@ xychart-beta
 | # | Problem | Topic | Time | Space | Test | Added |
 |:---:|:--|:--|:---:|:---:|:---:|:---:|
 | 01 | [Line Wrap (Word Wrap)](src/strings/greedy/LineWrap.kt) | `Strings` · `Greedy` | `O(n)` | `O(n)` | [🧪](test/strings/greedy/LineWrapTest.kt) | 2026-06-17 |
+| 02 | [Fruit Into Baskets](src/strings/greedy/FruitIntoBaskets.kt) | `Strings` · `Greedy` | `O(n)` | `O(1)` | [🧪](test/strings/greedy/FruitIntoBasketsTest.kt) | 2026-06-18 |
 <!-- INDEX:END -->
 
 ## 🚀 Run & test
