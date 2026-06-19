@@ -24,7 +24,7 @@
 
 🧮 **2** solved &nbsp;·&nbsp; 🔥 **2**-day streak &nbsp;·&nbsp; 🏆 **2** longest &nbsp;·&nbsp; 🗓️ **2** / 30 active
 
-🔥 **Daily activity** &nbsp;·&nbsp; 2026-05-20 → 2026-06-18
+🔥 **Daily activity** &nbsp;·&nbsp; 2026-05-21 → 2026-06-19
 
 <img src="assets/activity.svg" alt="30-day activity calendar" width="320">
 
@@ -36,9 +36,9 @@
 %%{init: {"xyChart": {"plotColorPalette": "#7F52FF"}}}%%
 xychart-beta
     title "Problems by category"
-    x-axis ["Strings"]
-    y-axis "Solved" 0 --> 3
-    bar [2]
+    x-axis ["Arrays", "Strings"]
+    y-axis "Solved" 0 --> 2
+    bar [1, 1]
 ```
 <!-- STATS:END -->
 
@@ -50,7 +50,7 @@ xychart-beta
 | # | Problem | Topic | Time | Space | Test | Added |
 |:---:|:--|:--|:---:|:---:|:---:|:---:|
 | 01 | [Line Wrap (Word Wrap)](src/strings/greedy/LineWrap.kt) | `Strings` · `Greedy` | `O(n)` | `O(n)` | [🧪](test/strings/greedy/LineWrapTest.kt) | 2026-06-17 |
-| 02 | [Fruit Into Baskets](src/strings/greedy/FruitIntoBaskets.kt) | `Strings` · `Greedy` | `O(n)` | `O(1)` | [🧪](test/strings/greedy/FruitIntoBasketsTest.kt) | 2026-06-18 |
+| 02 | [Fruit Into Baskets](src/arrays/slidingwindow/FruitIntoBaskets.kt) | `Arrays` · `Slidingwindow` | `O(n)` | `O(1)` | [🧪](test/arrays/slidingwindow/FruitIntoBasketsTest.kt) | 2026-06-18 |
 <!-- INDEX:END -->
 
 ## 🚀 Run & test
