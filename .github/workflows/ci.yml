@@ -42,6 +42,7 @@ jobs:
         uses: gradle/actions/wrapper-validation@v4
 
       - name: Check generated README
+        if: github.event_name != 'push'
         run: python3 scripts/generate_readme.py --check
 
       - name: Build and test

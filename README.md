@@ -50,7 +50,7 @@ xychart-beta
 | # | Problem | Topic | Time | Space | Test | Added |
 |:---:|:--|:--|:---:|:---:|:---:|:---:|
 | 01 | [Line Wrap (Word Wrap)](src/strings/greedy/LineWrap.kt) | `Strings` · `Greedy` | `O(n)` | `O(n)` | [🧪](test/strings/greedy/LineWrapTest.kt) | 2026-06-17 |
-| 02 | [Fruit Into Baskets](src/arrays/slidingwindow/FruitIntoBaskets.kt) | `Arrays` · `Slidingwindow` | `O(n)` | `O(1)` | [🧪](test/arrays/slidingwindow/FruitIntoBasketsTest.kt) | 2026-06-18 |
+| 02 | [Fruit Into Baskets](src/arrays/slidingwindow/FruitIntoBaskets.kt) | `Arrays` · `Sliding Window` | `O(n)` | `O(1)` | [🧪](test/arrays/slidingwindow/FruitIntoBasketsTest.kt) | 2026-06-18 |
 <!-- INDEX:END -->
 
 ## 🚀 Run & test

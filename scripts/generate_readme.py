@@ -12,9 +12,17 @@ README = os.path.join(ROOT, "README.md")
 ACTIVITY_SVG = os.path.join(ROOT, "assets", "activity.svg")
 
 WINDOW_DAYS = 30
+PRETTY_NAMES = {
+    "binarysearch": "Binary Search",
+    "linkedlist": "Linked List",
+    "slidingwindow": "Sliding Window",
+    "twopointers": "Two Pointers",
+}
 
 
 def prettify(name):
+    if name in PRETTY_NAMES:
+        return PRETTY_NAMES[name]
     return name.replace("_", " ").replace("-", " ").title()
 
 
