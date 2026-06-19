@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
+import argparse
 import os
 import re
 import subprocess
+import sys
 from datetime import datetime, timezone, date, timedelta
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "src")
 README = os.path.join(ROOT, "README.md")
+ACTIVITY_SVG = os.path.join(ROOT, "assets", "activity.svg")
 
 WINDOW_DAYS = 30
 
@@ -24,6 +27,10 @@ def clean_complexity(value):
     else:
         value = re.split(r"\s{2,}", value, maxsplit=1)[0]
     return value.strip() or "—"
+
+
+def markdown_cell(value):
+    return value.replace("\\", "\\\\").replace("|", "\\|").replace("\n", " ")
 
 
 def parse_header(path):
@@ -158,17 +165,15 @@ TOP = 20
 WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 CELL_STYLE = {
     "solved": ("#39d353", "1"),
-    "missed": ("#8b949e", "0.40"),
-    "out": ("#8b949e", "0.13"),
-    "today": ("#f85149", "1"),
+    "missed": ("#3f4650", "1"),
+    "out": ("#1f242d", "1"),
 }
+TODAY_STROKE = "#f0f6fc"
 
 
 def day_status(day, days, today, window_start):
     if day < window_start or day > today:
         return "out"
-    if day == today and day not in days:
-        return "today"
     if day in days:
         return "solved"
     return "missed"
@@ -186,7 +191,10 @@ def activity_svg(days, today):
     weeks = []
     week = grid_start
     while week <= grid_end:
-        weeks.append([day_status(week + timedelta(days=i), days, today, window_start) for i in range(7)])
+        weeks.append([
+            (week + timedelta(days=i), day_status(week + timedelta(days=i), days, today, window_start))
+            for i in range(7)
+        ])
         week += timedelta(days=7)
 
     rows = len(weeks)
@@ -217,7 +225,7 @@ def activity_svg(days, today):
             'font-size="9" fill="#8b949e">{}</text>'.format(x, FONT, label)
         )
     for r, days_row in enumerate(weeks):
-        for c, status in enumerate(days_row):
+        for c, (day, status) in enumerate(days_row):
             fill, opacity = CELL_STYLE[status]
             x = grid_x + c * (CELL + GAP)
             y = TOP + r * (CELL + GAP)
@@ -226,14 +234,29 @@ def activity_svg(days, today):
                     x, y, CELL, CELL, fill, opacity
                 )
             )
+            if day == today:
+                out.append(
+                    '<rect x="{:.1f}" y="{:.1f}" width="{}" height="{}" rx="3" fill="none" '
+                    'stroke="{}" stroke-width="1.5"/>'.format(
+                        x + 0.75, y + 0.75, CELL - 1.5, CELL - 1.5, TODAY_STROKE
+                    )
+                )
     lx = legend_x
     for i, (status, label) in enumerate(LEGEND):
-        fill, opacity = CELL_STYLE[status]
-        out.append(
-            '<rect x="{:.1f}" y="{:.1f}" width="{}" height="{}" rx="2.5" fill="{}" opacity="{}"/>'.format(
-                lx, legend_y, swatch, swatch, fill, opacity
+        if status == "today":
+            out.append(
+                '<rect x="{:.1f}" y="{:.1f}" width="{}" height="{}" rx="2.5" fill="none" '
+                'stroke="{}" stroke-width="1.5"/>'.format(
+                    lx + 0.75, legend_y + 0.75, swatch - 1.5, swatch - 1.5, TODAY_STROKE
+                )
             )
-        )
+        else:
+            fill, opacity = CELL_STYLE[status]
+            out.append(
+                '<rect x="{:.1f}" y="{:.1f}" width="{}" height="{}" rx="2.5" fill="{}" opacity="{}"/>'.format(
+                    lx, legend_y, swatch, swatch, fill, opacity
+                )
+            )
         out.append(
             '<text x="{:.1f}" y="{:.1f}" font-family="{}" font-size="10" fill="#8b949e">{}</text>'.format(
                 lx + swatch + label_gap, legend_y + swatch - 1, FONT, label
@@ -248,8 +271,9 @@ def plural(n):
     return "" if n == 1 else "s"
 
 
-def build_progress(problems):
-    today = datetime.now(timezone.utc).date()
+def build_progress(problems, today=None):
+    if today is None:
+        today = datetime.now(timezone.utc).date()
     total = len(problems)
     days = active_dates(problems)
 
@@ -267,7 +291,7 @@ def build_progress(problems):
     dashboard = (
         "<div align=\"center\">\n\n"
         + stat_line + "\n\n"
-        + "**🔥 Daily activity** &nbsp;·&nbsp; <sub>" + start.isoformat() + " → " + end.isoformat() + "</sub>\n\n"
+        + "🔥 **Daily activity** &nbsp;·&nbsp; " + start.isoformat() + " → " + end.isoformat() + "\n\n"
         + '<img src="assets/activity.svg" alt="30-day activity calendar" width="320">\n\n'
         + "</div>"
     )
@@ -289,7 +313,14 @@ def build_index(problems):
         test = "[🧪]({})".format(p["test"]) if p["test_exists"] else "—"
         topic = "`{}` · `{}`".format(prettify(p["category"]), prettify(p["technique"]))
         rows.append("| {:02d} | [{}]({}) | {} | `{}` | `{}` | {} | {} |".format(
-            i, p["title"], p["solution"], topic, p["time"], p["space"], test, p["date"] or "—",
+            i,
+            markdown_cell(p["title"]),
+            p["solution"],
+            topic,
+            markdown_cell(p["time"]),
+            markdown_cell(p["space"]),
+            test,
+            p["date"] or "—",
         ))
     return header + "\n" + "\n".join(rows)
 
@@ -298,31 +329,69 @@ def replace_region(text, name, payload):
     start = "<!-- {}:START -->".format(name)
     end = "<!-- {}:END -->".format(name)
     pattern = re.compile(re.escape(start) + ".*?" + re.escape(end), re.DOTALL)
-    return pattern.sub(start + "\n" + payload + "\n" + end, text)
+    updated, count = pattern.subn(start + "\n" + payload + "\n" + end, text)
+    if count != 1:
+        raise RuntimeError("Expected exactly one {} region in README.md.".format(name))
+    return updated
 
 
-def main():
+def read_readme():
+    with open(README, encoding="utf-8") as handle:
+        return handle.read()
+
+
+def readme_activity_end(text):
+    match = re.search(r"\d{4}-\d{2}-\d{2}\s+(?:→|->)\s+(\d{4}-\d{2}-\d{2})", text)
+    if not match:
+        return None
+    return date.fromisoformat(match.group(1))
+
+
+def generate(readme_text=None, today=None):
     problems = collect_problems()
-    total, progress, svg = build_progress(problems)
+    total, progress, svg = build_progress(problems, today=today)
     index = build_index(problems)
 
-    with open(README, encoding="utf-8") as handle:
-        text = handle.read()
+    text = readme_text if readme_text is not None else read_readme()
 
     text = replace_region(text, "STATS", progress)
     text = replace_region(text, "INDEX", index)
     text = re.sub(r"(Problems%20Solved-)\d+", lambda m: m.group(1) + str(total), text)
 
+    return text, svg, total
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Generate README progress, index, and activity SVG.")
+    parser.add_argument("--check", action="store_true", help="fail if generated files are not up to date")
+    args = parser.parse_args()
+
+    if args.check:
+        current_readme = read_readme()
+        text, svg, total = generate(current_readme, today=readme_activity_end(current_readme))
+        if os.path.exists(ACTIVITY_SVG):
+            with open(ACTIVITY_SVG, encoding="utf-8") as handle:
+                current_svg = handle.read()
+        else:
+            current_svg = ""
+        if current_readme != text or current_svg != svg:
+            print("README.md or assets/activity.svg is out of date. Run: python3 scripts/generate_readme.py", file=sys.stderr)
+            return 1
+        print("README.md and assets/activity.svg are up to date for {} problem(s).".format(total))
+        return 0
+
+    text, svg, total = generate()
+
     with open(README, "w", encoding="utf-8") as handle:
         handle.write(text)
 
-    svg_path = os.path.join(ROOT, "assets", "activity.svg")
-    os.makedirs(os.path.dirname(svg_path), exist_ok=True)
-    with open(svg_path, "w", encoding="utf-8") as handle:
+    os.makedirs(os.path.dirname(ACTIVITY_SVG), exist_ok=True)
+    with open(ACTIVITY_SVG, "w", encoding="utf-8") as handle:
         handle.write(svg)
 
     print("Generated README + assets/activity.svg for {} problem(s).".format(total))
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

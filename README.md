@@ -5,9 +5,9 @@
 ##### One problem a day — clean, documented, and tested.
 
 [![CI](https://img.shields.io/github/actions/workflow/status/mauli-waghmore/data-structures-algorithms-kotlin/ci.yml?style=flat-square&label=CI&logo=github&logoColor=white)](https://github.com/mauli-waghmore/data-structures-algorithms-kotlin/actions/workflows/ci.yml)
-[![Kotlin](https://img.shields.io/badge/Kotlin-2.0-7F52FF?style=flat-square&logo=kotlin&logoColor=white)](https://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-7F52FF?style=flat-square&logo=kotlin&logoColor=white)](https://kotlinlang.org)
 [![JDK](https://img.shields.io/badge/JDK-17-007396?style=flat-square&logo=openjdk&logoColor=white)](https://adoptium.net)
-[![Gradle](https://img.shields.io/badge/Gradle-8.14-02303A?style=flat-square&logo=gradle&logoColor=white)](https://gradle.org)
+[![Gradle](https://img.shields.io/badge/Gradle-8.14.4-02303A?style=flat-square&logo=gradle&logoColor=white)](https://gradle.org)
 [![License](https://img.shields.io/badge/License-MIT-3DA639?style=flat-square)](LICENSE)
 [![Problems Solved](https://img.shields.io/badge/Problems%20Solved-2-success?style=flat-square)](#-progress)
 
@@ -24,7 +24,7 @@
 
 🧮 **2** solved &nbsp;·&nbsp; 🔥 **2**-day streak &nbsp;·&nbsp; 🏆 **2** longest &nbsp;·&nbsp; 🗓️ **2** / 30 active
 
-**🔥 Daily activity** &nbsp;·&nbsp; <sub>2026-05-20 → 2026-06-18</sub>
+🔥 **Daily activity** &nbsp;·&nbsp; 2026-05-20 → 2026-06-18
 
 <img src="assets/activity.svg" alt="30-day activity calendar" width="320">
 
@@ -60,6 +60,7 @@ xychart-beta
 ```bash
 ./gradlew test                                            # run all tests
 ./gradlew build                                           # compile + test
+python3 scripts/generate_readme.py --check                # verify generated README sections
 ./gradlew runProblem -Pmain=strings.greedy.LineWrapKt     # run one problem's main()
 ./gradlew reviewRandom                                    # pick a past problem to revisit 🎯
 ```
@@ -74,8 +75,8 @@ One command scaffolds **both** files (solution + test) from the template — no 
 
 That creates `src/arrays/two_pointers/TwoSum.kt` (with the KDoc header — fill in the
 problem, `Time:` and `Space:`) and `test/arrays/two_pointers/TwoSumTest.kt`. Then solve it,
-run `./gradlew test`, and **push** — the streak, graph, index, badge, and version all
-update themselves.
+run `./gradlew build` and `python3 scripts/generate_readme.py --check`, and **push** — the
+streak, graph, index, badge, and version all update themselves.
 
 <details>
 <summary><b>🗂️ Project structure</b></summary>

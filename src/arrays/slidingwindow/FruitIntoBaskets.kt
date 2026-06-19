@@ -1,4 +1,4 @@
-package strings.greedy
+package arrays.slidingwindow
 
 /**
  * Fruit Into Baskets
