@@ -9,7 +9,7 @@
 [![JDK](https://img.shields.io/badge/JDK-17-007396?style=flat-square&logo=openjdk&logoColor=white)](https://adoptium.net)
 [![Gradle](https://img.shields.io/badge/Gradle-8.14.4-02303A?style=flat-square&logo=gradle&logoColor=white)](https://gradle.org)
 [![License](https://img.shields.io/badge/License-MIT-3DA639?style=flat-square)](LICENSE)
-[![Problems Solved](https://img.shields.io/badge/Problems%20Solved-2-success?style=flat-square)](#-progress)
+[![Problems Solved](https://img.shields.io/badge/Problems%20Solved-3-success?style=flat-square)](#-progress)
 
 [**📊 Progress**](#-progress) &nbsp;·&nbsp; [**📇 Problems**](#-problem-index) &nbsp;·&nbsp; [**🚀 Run**](#-run--test) &nbsp;·&nbsp; [**➕ Add a problem**](#-adding-a-problem)
 
@@ -22,7 +22,7 @@
 <!-- STATS:START -->
 <div align="center">
 
-🧮 **2** solved &nbsp;·&nbsp; 🔥 **2**-day streak &nbsp;·&nbsp; 🏆 **2** longest &nbsp;·&nbsp; 🗓️ **2** / 30 active
+🧮 **3** solved &nbsp;·&nbsp; 🔥 **3**-day streak &nbsp;·&nbsp; 🏆 **3** longest &nbsp;·&nbsp; 🗓️ **3** / 30 active
 
 🔥 **Daily activity** &nbsp;·&nbsp; 2026-05-21 → 2026-06-19
 
@@ -37,8 +37,8 @@
 xychart-beta
     title "Problems by category"
     x-axis ["Arrays", "Strings"]
-    y-axis "Solved" 0 --> 2
-    bar [1, 1]
+    y-axis "Solved" 0 --> 3
+    bar [1, 2]
 ```
 <!-- STATS:END -->
 
@@ -51,6 +51,7 @@ xychart-beta
 |:---:|:--|:--|:---:|:---:|:---:|:---:|
 | 01 | [Line Wrap (Word Wrap)](src/strings/greedy/LineWrap.kt) | `Strings` · `Greedy` | `O(n)` | `O(n)` | [🧪](test/strings/greedy/LineWrapTest.kt) | 2026-06-17 |
 | 02 | [Fruit Into Baskets](src/arrays/slidingwindow/FruitIntoBaskets.kt) | `Arrays` · `Sliding Window` | `O(n)` | `O(1)` | [🧪](test/arrays/slidingwindow/FruitIntoBasketsTest.kt) | 2026-06-18 |
+| 03 | [Longest Repeating Character Replacement](src/strings/slidingwindow/LongestRepeatingCharacterReplacement.kt) | `Strings` · `Sliding Window` | `O(n)` | `O(1)` | [🧪](test/strings/slidingwindow/LongestRepeatingCharacterReplacementTest.kt) | 2026-06-19 |
 <!-- INDEX:END -->
 
 ## 🚀 Run & test
