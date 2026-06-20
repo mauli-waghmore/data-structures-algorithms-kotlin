@@ -1,4 +1,4 @@
-package strings.slidingwindow
+package arrays.slidingwindow
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
