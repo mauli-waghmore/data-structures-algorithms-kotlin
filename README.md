@@ -37,8 +37,8 @@
 xychart-beta
     title "Problems by category"
     x-axis ["Arrays", "Strings"]
-    y-axis "Solved" 0 --> 4
-    bar [1, 3]
+    y-axis "Solved" 0 --> 3
+    bar [2, 2]
 ```
 <!-- STATS:END -->
 
@@ -52,7 +52,7 @@ xychart-beta
 | 01 | [Line Wrap (Word Wrap)](src/strings/greedy/LineWrap.kt) | `Strings` · `Greedy` | `O(n)` | `O(n)` | [🧪](test/strings/greedy/LineWrapTest.kt) | 2026-06-17 |
 | 02 | [Fruit Into Baskets](src/arrays/slidingwindow/FruitIntoBaskets.kt) | `Arrays` · `Sliding Window` | `O(n)` | `O(1)` | [🧪](test/arrays/slidingwindow/FruitIntoBasketsTest.kt) | 2026-06-18 |
 | 03 | [Longest Repeating Character Replacement](src/strings/slidingwindow/LongestRepeatingCharacterReplacement.kt) | `Strings` · `Sliding Window` | `O(n)` | `O(1)` | [🧪](test/strings/slidingwindow/LongestRepeatingCharacterReplacementTest.kt) | 2026-06-19 |
-| 04 | [Binary Subarray With Sum](src/strings/slidingwindow/BinarySubarrayWithSum.kt) | `Strings` · `Sliding Window` | `—` | `—` | [🧪](test/strings/slidingwindow/BinarySubarrayWithSumTest.kt) | 2026-06-20 |
+| 04 | [Binary Subarray With Sum](src/arrays/slidingwindow/BinarySubarrayWithSum.kt) | `Arrays` · `Sliding Window` | `O(n)` | `O(1)` | [🧪](test/arrays/slidingwindow/BinarySubarrayWithSumTest.kt) | 2026-06-20 |
 <!-- INDEX:END -->
 
 ## 🚀 Run & test
