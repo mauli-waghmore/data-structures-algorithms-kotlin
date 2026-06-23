@@ -9,7 +9,7 @@
 [![JDK](https://img.shields.io/badge/JDK-17-007396?style=flat-square&logo=openjdk&logoColor=white)](https://adoptium.net)
 [![Gradle](https://img.shields.io/badge/Gradle-8.14.4-02303A?style=flat-square&logo=gradle&logoColor=white)](https://gradle.org)
 [![License](https://img.shields.io/badge/License-MIT-3DA639?style=flat-square)](LICENSE)
-[![Problems Solved](https://img.shields.io/badge/Problems%20Solved-6-success?style=flat-square)](#-progress)
+[![Problems Solved](https://img.shields.io/badge/Problems%20Solved-7-success?style=flat-square)](#-progress)
 
 [**📊 Progress**](#-progress) &nbsp;·&nbsp; [**📇 Problems**](#-problem-index) &nbsp;·&nbsp; [**🚀 Run**](#-run--test) &nbsp;·&nbsp; [**➕ Add a problem**](#-adding-a-problem)
 
@@ -22,9 +22,9 @@
 <!-- STATS:START -->
 <div align="center">
 
-🧮 **6** solved &nbsp;·&nbsp; 🔥 **6**-day streak &nbsp;·&nbsp; 🏆 **6** longest &nbsp;·&nbsp; 🗓️ **6** / 30 active
+🧮 **7** solved &nbsp;·&nbsp; 🔥 **7**-day streak &nbsp;·&nbsp; 🏆 **7** longest &nbsp;·&nbsp; 🗓️ **7** / 30 active
 
-🔥 **Daily activity** &nbsp;·&nbsp; 2026-05-24 → 2026-06-22
+🔥 **Daily activity** &nbsp;·&nbsp; 2026-05-25 → 2026-06-23
 
 <img src="assets/activity.svg" alt="30-day activity calendar" width="320">
 
@@ -37,8 +37,8 @@
 xychart-beta
     title "Problems by category"
     x-axis ["Arrays", "Strings"]
-    y-axis "Solved" 0 --> 4
-    bar [3, 3]
+    y-axis "Solved" 0 --> 5
+    bar [4, 3]
 ```
 <!-- STATS:END -->
 
@@ -55,6 +55,7 @@ xychart-beta
 | 04 | [Binary Subarray With Sum](src/arrays/slidingwindow/BinarySubarrayWithSum.kt) | `Arrays` · `Sliding Window` | `O(n)` | `O(1)` | [🧪](test/arrays/slidingwindow/BinarySubarrayWithSumTest.kt) | 2026-06-20 |
 | 05 | [Count Number of Nice Subarrays](src/arrays/slidingwindow/CountNumberOfNiceSubarrays.kt) | `Arrays` · `Sliding Window` | `O(n)` | `O(1)` | [🧪](test/arrays/slidingwindow/CountNumberOfNiceSubarraysTest.kt) | 2026-06-21 |
 | 06 | [Number of Substrings Containing All Three Characters](src/strings/slidingwindow/NumberOfSubstringsContainingAllThreeCharacters.kt) | `Strings` · `Sliding Window` | `O(n)` | `O(1)` | [🧪](test/strings/slidingwindow/NumberOfSubstringsContainingAllThreeCharactersTest.kt) | 2026-06-22 |
+| 07 | [Maximum Points You Can Obtain from Cards](src/arrays/slidingwindow/MaximumPointsYouCanObtainFromCards.kt) | `Arrays` · `Sliding Window` | `O(k)` | `O(1)` | [🧪](test/arrays/slidingwindow/MaximumPointsYouCanObtainFromCardsTest.kt) | 2026-06-23 |
 <!-- INDEX:END -->
 
 ## 🚀 Run & test
