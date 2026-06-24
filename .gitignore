@@ -22,10 +22,6 @@ target/
 gradle-app.setting
 !gradle-wrapper.jar
 
-# Claude
-.claude/
-
-# Environment files
 .env
 .env.local
 .env.*.local
