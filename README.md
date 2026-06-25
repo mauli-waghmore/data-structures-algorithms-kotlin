@@ -9,7 +9,7 @@
 [![JDK](https://img.shields.io/badge/JDK-17-007396?style=flat-square&logo=openjdk&logoColor=white)](https://adoptium.net)
 [![Gradle](https://img.shields.io/badge/Gradle-8.14.4-02303A?style=flat-square&logo=gradle&logoColor=white)](https://gradle.org)
 [![License](https://img.shields.io/badge/License-MIT-3DA639?style=flat-square)](LICENSE)
-[![Problems Solved](https://img.shields.io/badge/Problems%20Solved-8-success?style=flat-square)](#-progress)
+[![Problems Solved](https://img.shields.io/badge/Problems%20Solved-9-success?style=flat-square)](#-progress)
 
 [**📊 Progress**](#-progress) &nbsp;·&nbsp; [**📇 Problems**](#-problem-index) &nbsp;·&nbsp; [**🚀 Run**](#-run--test) &nbsp;·&nbsp; [**➕ Add a problem**](#-adding-a-problem)
 
@@ -22,9 +22,9 @@
 <!-- STATS:START -->
 <div align="center">
 
-🧮 **8** solved &nbsp;·&nbsp; 🔥 **8**-day streak &nbsp;·&nbsp; 🏆 **8** longest &nbsp;·&nbsp; 🗓️ **8** / 30 active
+🧮 **9** solved &nbsp;·&nbsp; 🔥 **9**-day streak &nbsp;·&nbsp; 🏆 **9** longest &nbsp;·&nbsp; 🗓️ **9** / 30 active
 
-🔥 **Daily activity** &nbsp;·&nbsp; 2026-05-26 → 2026-06-24
+🔥 **Daily activity** &nbsp;·&nbsp; 2026-05-27 → 2026-06-25
 
 <img src="assets/activity.svg" alt="30-day activity calendar" width="320">
 
@@ -37,8 +37,8 @@
 xychart-beta
     title "Problems by category"
     x-axis ["Arrays", "Strings"]
-    y-axis "Solved" 0 --> 5
-    bar [4, 4]
+    y-axis "Solved" 0 --> 6
+    bar [5, 4]
 ```
 <!-- STATS:END -->
 
@@ -57,6 +57,7 @@ xychart-beta
 | 06 | [Number of Substrings Containing All Three Characters](src/strings/slidingwindow/NumberOfSubstringsContainingAllThreeCharacters.kt) | `Strings` · `Sliding Window` | `O(n)` | `O(1)` | [🧪](test/strings/slidingwindow/NumberOfSubstringsContainingAllThreeCharactersTest.kt) | 2026-06-22 |
 | 07 | [Maximum Points You Can Obtain from Cards](src/arrays/slidingwindow/MaximumPointsYouCanObtainFromCards.kt) | `Arrays` · `Sliding Window` | `O(k)` | `O(1)` | [🧪](test/arrays/slidingwindow/MaximumPointsYouCanObtainFromCardsTest.kt) | 2026-06-23 |
 | 08 | [Longest Substring with At Most K Distinct Characters](src/strings/slidingwindow/LongestSubstringKDistinct.kt) | `Strings` · `Sliding Window` | `O(n)` | `O(k)` | [🧪](test/strings/slidingwindow/LongestSubstringKDistinctTest.kt) | 2026-06-24 |
+| 09 | [Subarray with K Different Integers](src/arrays/slidingwindow/SubarraysWithKDistinct.kt) | `Arrays` · `Sliding Window` | `O(n)` | `O(n)` | [🧪](test/arrays/slidingwindow/SubarraysWithKDistinctTest.kt) | 2026-06-25 |
 <!-- INDEX:END -->
 
 ## 🚀 Run & test
