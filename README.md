@@ -9,7 +9,7 @@
 [![JDK](https://img.shields.io/badge/JDK-17-007396?style=flat-square&logo=openjdk&logoColor=white)](https://adoptium.net)
 [![Gradle](https://img.shields.io/badge/Gradle-8.14.4-02303A?style=flat-square&logo=gradle&logoColor=white)](https://gradle.org)
 [![License](https://img.shields.io/badge/License-MIT-3DA639?style=flat-square)](LICENSE)
-[![Problems Solved](https://img.shields.io/badge/Problems%20Solved-10-success?style=flat-square)](#-progress)
+[![Problems Solved](https://img.shields.io/badge/Problems%20Solved-11-success?style=flat-square)](#-progress)
 
 [**📊 Progress**](#-progress) &nbsp;·&nbsp; [**📇 Problems**](#-problem-index) &nbsp;·&nbsp; [**🚀 Run**](#-run--test) &nbsp;·&nbsp; [**➕ Add a problem**](#-adding-a-problem)
 
@@ -22,9 +22,9 @@
 <!-- STATS:START -->
 <div align="center">
 
-🧮 **10** solved &nbsp;·&nbsp; 🔥 **10**-day streak &nbsp;·&nbsp; 🏆 **10** longest &nbsp;·&nbsp; 🗓️ **10** / 30 active
+🧮 **11** solved &nbsp;·&nbsp; 🔥 **11**-day streak &nbsp;·&nbsp; 🏆 **11** longest &nbsp;·&nbsp; 🗓️ **11** / 30 active
 
-🔥 **Daily activity** &nbsp;·&nbsp; 2026-05-28 → 2026-06-26
+🔥 **Daily activity** &nbsp;·&nbsp; 2026-05-29 → 2026-06-27
 
 <img src="assets/activity.svg" alt="30-day activity calendar" width="320">
 
@@ -37,8 +37,8 @@
 xychart-beta
     title "Problems by category"
     x-axis ["Arrays", "Strings"]
-    y-axis "Solved" 0 --> 6
-    bar [5, 5]
+    y-axis "Solved" 0 --> 7
+    bar [5, 6]
 ```
 <!-- STATS:END -->
 
@@ -59,6 +59,7 @@ xychart-beta
 | 08 | [Longest Substring with At Most K Distinct Characters](src/strings/slidingwindow/LongestSubstringKDistinct.kt) | `Strings` · `Sliding Window` | `O(n)` | `O(k)` | [🧪](test/strings/slidingwindow/LongestSubstringKDistinctTest.kt) | 2026-06-24 |
 | 09 | [Subarray with K Different Integers](src/arrays/slidingwindow/SubarraysWithKDistinct.kt) | `Arrays` · `Sliding Window` | `O(n)` | `O(n)` | [🧪](test/arrays/slidingwindow/SubarraysWithKDistinctTest.kt) | 2026-06-25 |
 | 10 | [Minimum Window Substring](src/strings/slidingwindow/MinimumWindowSubstring.kt) | `Strings` · `Sliding Window` | `O(m + n)` | `O(1)` | [🧪](test/strings/slidingwindow/MinimumWindowSubstringTest.kt) | 2026-06-26 |
+| 11 | [Minimum Window Subsequence](src/strings/twopointers/MinimumWindowSubsequence.kt) | `Strings` · `Two Pointers` | `O(n * m) in the worst case, where `n` is the length of `s1`` | `O(1)` | [🧪](test/strings/twopointers/MinimumWindowSubsequenceTest.kt) | 2026-06-27 |
 <!-- INDEX:END -->
 
 ## 🚀 Run & test
