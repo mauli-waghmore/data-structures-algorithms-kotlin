@@ -9,7 +9,7 @@
 [![JDK](https://img.shields.io/badge/JDK-17-007396?style=flat-square&logo=openjdk&logoColor=white)](https://adoptium.net)
 [![Gradle](https://img.shields.io/badge/Gradle-8.14.4-02303A?style=flat-square&logo=gradle&logoColor=white)](https://gradle.org)
 [![License](https://img.shields.io/badge/License-MIT-3DA639?style=flat-square)](LICENSE)
-[![Problems Solved](https://img.shields.io/badge/Problems%20Solved-13-success?style=flat-square)](#-progress)
+[![Problems Solved](https://img.shields.io/badge/Problems%20Solved-14-success?style=flat-square)](#-progress)
 
 [**📊 Progress**](#-progress) &nbsp;·&nbsp; [**📇 Problems**](#-problem-index) &nbsp;·&nbsp; [**🚀 Run**](#-run--test) &nbsp;·&nbsp; [**➕ Add a problem**](#-adding-a-problem)
 
@@ -22,9 +22,9 @@
 <!-- STATS:START -->
 <div align="center">
 
-🧮 **13** solved &nbsp;·&nbsp; 🔥 **2**-day streak &nbsp;·&nbsp; 🏆 **11** longest &nbsp;·&nbsp; 🗓️ **13** / 30 active
+🧮 **14** solved &nbsp;·&nbsp; 🔥 **2**-day streak &nbsp;·&nbsp; 🏆 **11** longest &nbsp;·&nbsp; 🗓️ **13** / 30 active
 
-🔥 **Daily activity** &nbsp;·&nbsp; 2026-06-01 → 2026-06-30
+🔥 **Daily activity** &nbsp;·&nbsp; 2026-06-02 → 2026-07-01
 
 <img src="assets/activity.svg" alt="30-day activity calendar" width="320">
 
@@ -37,8 +37,8 @@
 xychart-beta
     title "Problems by category"
     x-axis ["Arrays", "Strings"]
-    y-axis "Solved" 0 --> 8
-    bar [7, 6]
+    y-axis "Solved" 0 --> 9
+    bar [8, 6]
 ```
 <!-- STATS:END -->
 
@@ -61,7 +61,8 @@ xychart-beta
 | 10 | [Minimum Window Substring](src/strings/slidingwindow/MinimumWindowSubstring.kt) | `Strings` · `Sliding Window` | `O(m + n)` | `O(1)` | [🧪](test/strings/slidingwindow/MinimumWindowSubstringTest.kt) | 2026-06-26 |
 | 11 | [Minimum Window Subsequence](src/strings/twopointers/MinimumWindowSubsequence.kt) | `Strings` · `Two Pointers` | `O(n * m) in the worst case, where `n` is the length of `s1`` | `O(1)` | [🧪](test/strings/twopointers/MinimumWindowSubsequenceTest.kt) | 2026-06-27 |
 | 12 | [Max Heap Insertion](src/arrays/heap/MaxHeap.kt) | `Arrays` · `Heap` | `—` | `—` | [🧪](test/arrays/heap/MaxHeapTest.kt) | 2026-06-29 |
-| 13 | [Max Heap Delete Root](src/arrays/heap/MaxHeapRootDeletion.kt) | `Arrays` · `Heap` | `—` | `—` | [🧪](test/arrays/heap/MaxHeapRootDeletionTest.kt) | 2026-06-30 |
+| 13 | [Heapify Algorithm](src/arrays/heap/HeapifyAlgorithm.kt) | `Arrays` · `Heap` | `—` | `—` | [🧪](test/arrays/heap/HeapifyAlgorithmTest.kt) | 2026-06-30 |
+| 14 | [Max Heap Delete Root](src/arrays/heap/MaxHeapRootDeletion.kt) | `Arrays` · `Heap` | `—` | `—` | [🧪](test/arrays/heap/MaxHeapRootDeletionTest.kt) | 2026-06-30 |
 <!-- INDEX:END -->
 
 ## 🚀 Run & test
